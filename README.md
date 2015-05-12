@@ -1,13 +1,16 @@
-# SA-MP-Editor
-Description:
-	SA-MP in-game editor for creating and editing objects, vehicles, actors and more.
+SA-MP (San Andreas Multi-player) Editor
+---------------------------------------
 
-	This script was written using SA-MP version 0.3.7 and will not work in earlier versions 
-	due to actor functions being added in that release.
+Description
+-----------
+SA-MP Editor is an in-game editor for objects, vehicles, actors and more.
 
-Plugins:
-	Plugins are not included with this script and require you to download them separately
+Requirements
+------------
+This script requires actor functions from 0.3.7.
 
-	Streamer by Incognito:
-		Release:  http://forum.sa-mp.com/showthread.php?t=102865
-		Download: https://github.com/samp-incognito/samp-streamer-plugin/releases/tag/v2.7.6
+Plugins required for this mode are not included and require downloading separately.
+
+Streamer by Incognito:
+	Release:  http://forum.sa-mp.com/showthread.php?t=102865
+	Download: https://github.com/samp-incognito/samp-streamer-plugin/releases/tag/v2.7.6
