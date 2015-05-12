@@ -1,3 +1,17 @@
+/*-------------------------------------------------------*-
+	p_dialog by Psymetrix, 2015.
+
+	This script was thrown together in a hurry and should NOT be
+	used on public servers.
+
+	Natives:
+		native DialogShow(playerid, dialogname[], style, caption[], info[], button1[], button2[]);
+		native DialogHide(playerid);
+		native bool:IsDialogOpen(playerid);
+
+	Hooked callbacks:
+		OnDialogResponse
+-*-------------------------------------------------------*/
 #if !defined isnull
 	#define isnull(%1) \
 			((!(%1[0])) || (((%1[0]) == '\1') && (!(%1[1]))))
