@@ -21,6 +21,7 @@
 
 enum E_FLY_INFO
 {
+	bool:  eControllable,
 	bool:  eIsFlying,
 		   eFlyObject,
 		   eMoveDirection,
@@ -31,6 +32,17 @@ enum E_FLY_INFO
 };
 
 static gFlyInfo[MAX_PLAYERS][E_FLY_INFO];
+
+ToggleFlyControls(playerid, bool:toggle)
+{
+	gFlyInfo[playerid][eControllable] = toggle;
+	return 1;
+}
+
+bool:IsFlyModeControllable(playerid)
+{
+	return gFlyInfo[playerid][eControllable];
+}
 
 IsPlayerInFlyMode(playerid)
 {
@@ -66,6 +78,14 @@ ToggleFlyMode(playerid, bool:toggle)
 	return 1;
 }
 
+SetFlyModePos(playerid, Float:pos_x, Float:pos_y, Float:pos_z)
+{
+	if (IsPlayerInFlyMode(playerid))
+	{
+		SetPlayerObjectPos(playerid, gFlyInfo[playerid][eFlyObject], pos_x, pos_y, pos_z);
+	}	
+}
+
 GetMoveDirectionFromKeys(ud, lr)
 {
 	new direction = 0;
@@ -95,7 +115,7 @@ MoveCamera(playerid)
     GetPlayerCameraFrontVector(playerid, FV[0], FV[1], FV[2]);  //  Where the camera is looking at
 
 	// Increases the acceleration multiplier the longer the key is held
-	if(gFlyInfo[playerid][eAccelMul] <= 1) gFlyInfo[playerid][eAccelMul] += ACCEL_RATE;
+	if(gFlyInfo[playerid][eAccelMul] <= 2.0) gFlyInfo[playerid][eAccelMul] += ACCEL_RATE;
 
 	// Determine the speed to move the camera based on the acceleration multiplier
 	new Float:speed = MOVE_SPEED * gFlyInfo[playerid][eAccelMul];
@@ -171,7 +191,7 @@ stock GetNextCameraPosition(move_mode, Float:CP[3], Float:FV[3], &Float:X, &Floa
 
 public OnPlayerUpdate(playerid)
 {
-	if (IsPlayerInFlyMode(playerid))
+	if (IsPlayerInFlyMode(playerid) && IsFlyModeControllable(playerid))
 	{
 		new keys,ud,lr;
 		GetPlayerKeys(playerid,keys,ud,lr);
@@ -188,8 +208,8 @@ public OnPlayerUpdate(playerid)
 			if((gFlyInfo[playerid][eUdOld] != 0 || gFlyInfo[playerid][eLrOld] != 0) && ud == 0 && lr == 0)
 			{   // All keys have been released, stop the object the camera is attached to and reset the acceleration multiplier
 				StopPlayerObject(playerid, gFlyInfo[playerid][eFlyObject]);
-				gFlyInfo[playerid][eMoveDirection]      = 0;
-				gFlyInfo[playerid][eAccelMul]  = 0.0;
+				gFlyInfo[playerid][eMoveDirection] = 0;
+				gFlyInfo[playerid][eAccelMul] = 0.0;
 			}
 			else
 			{   // Indicates a new key has been pressed

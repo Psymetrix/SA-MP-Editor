@@ -3,7 +3,7 @@ enum
 	EDITOR_BUTTON_OBJECT,
 	EDITOR_BUTTON_VEHICLE,
 	EDITOR_BUTTON_PICKUP,
-	EDITOR_BUTTON_CLASS,
+	EDITOR_BUTTON_ACTOR,
 	EDITOR_BUTTON_EXPORT,
 	EDITOR_BUTTON_INFO,
 	EDITOR_BUTTON_SETTINGS
@@ -219,7 +219,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(gsEditorButtons[10], 1);
 	TextDrawSetShadow(gsEditorButtons[10], 0);
 
-	gsEditorButtons[11] = TextDrawCreate(493.000000, 422.000000, "CREATE~n~CLASS");
+	gsEditorButtons[11] = TextDrawCreate(493.000000, 422.000000, "CREATE~n~ACTOR");
 	TextDrawLetterSize(gsEditorButtons[11], 0.147698, 0.853333);
 	TextDrawAlignment(gsEditorButtons[11], 2);
 	TextDrawColor(gsEditorButtons[11], -1);
@@ -308,7 +308,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		// Create class
 		if (clickedid == gsEditorButtons[4])
 		{
-			OnPlayerClickEditorButton(playerid, EDITOR_BUTTON_CLASS);
+			OnPlayerClickEditorButton(playerid, EDITOR_BUTTON_ACTOR);
 			return 1;
 		}
 		// Export
